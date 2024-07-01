@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-from zoneinfo import ZoneInfo
 from dotenv import load_dotenv
 from alphaess.alphaess import alphaess
 import gspread
@@ -30,7 +29,7 @@ async def log_current_power():
 
     # Get the most recent power data and construct an array for the spreadsheet
     power = await aclient.getLastPowerData(serial)
-    row = [datetime.now(ZoneInfo('Europe/London')).strftime("%Y-%m-%d %H:%M:%S"),
+    row = [datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
            power['ppv'],
            power['pload'],
            power['pgrid'],
