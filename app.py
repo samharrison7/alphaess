@@ -8,7 +8,8 @@ table_headers = ['Timestamp (UTC)',
                  'Grid consumption (W)',
                  'Battery discharge (W)',
                  'Battery status',
-                 'Grid status']
+                 'Grid status',
+                 'Battery charge (%)']
 app = Flask(__name__)
 
 

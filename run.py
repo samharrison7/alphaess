@@ -27,15 +27,18 @@ async def log_current_power():
     # for that
     serial = ess_list[0]['sysSn']
 
+
     # Get the most recent power data and construct an array for the spreadsheet
     power = await aclient.getLastPowerData(serial)
+    print(power['soc'])
     row = [datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
            power['ppv'],
            power['pload'],
            power['pgrid'],
            power['pbat'],
            'discharging' if power['pbat'] > 0.0 else 'idle' if power['pbat'] == 0.0 else 'charging',
-           'consuming' if power['pgrid'] > 0.0 else 'idle' if power['pgrid'] == 0.0 else 'feeding']
+           'consuming' if power['pgrid'] > 0.0 else 'idle' if power['pgrid'] == 0.0 else 'feeding',
+           power['soc']]
     # Add to the spreadsheet and close the AlphaESS client
     sheet.append_row(row)
     await aclient.close()
