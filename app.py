@@ -1,13 +1,14 @@
+import asyncio
 from flask import Flask
-import subprocess
+from run import log_current_power
 
 app = Flask(__name__)
 
 
 @app.route('/run')
 def run_script():
-    result = subprocess.run(['python', 'run.py'], capture_output=True, text=True)
-    return result.stdout
+    current_power = asyncio.run(log_current_power())
+    return current_power
 
 
 if __name__ == '__main__':
