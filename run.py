@@ -34,8 +34,8 @@ async def log_current_power():
            power['pload'],
            power['pgrid'],
            power['pbat'],
-           'Y' if power['pbat'] > 0.0 else 'N',
-           'N' if power['pgrid'] >= 0.0 else 'Y']
+           'discharging' if power['pbat'] > 0.0 else 'idle' if power['pbat'] == 0.0 else 'charging',
+           'consuming' if power['pgrid'] > 0.0 else 'idle' if power['pgrid'] == 0.0 else 'feeding']
     # Add to the spreadsheet and close the AlphaESS client
     sheet.append_row(row)
     await aclient.close()
